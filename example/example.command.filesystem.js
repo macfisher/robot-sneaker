@@ -292,6 +292,21 @@
 
 .config(['commandBrokerProvider', function (commandBrokerProvider) {
 
+	var roomCommand = function () {
+        var me = {};
+        var fs = null;
+        me.command= 'room';
+        me.description= ['Displays room.'];
+        me.init = ['fileSystem', function (fileSystem) {
+            fs = fileSystem;
+        }];
+        me.handle = function (session) {
+            session.output.push({ output: true, text: ["This is a simple room. Testing... HELLO WORLD!"], breakLine: true });
+        }
+        return me;
+    };
+    commandBrokerProvider.appendCommandHandler(roomCommand());
+    
     var pwdCommand = function () {
         var me = {};
         var fs = null;
